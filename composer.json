@@ -24,7 +24,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Jiny\\Petterns\\": "src/"
+            "Jiny\\Nugu\\": "src/"
         },
         "files": [
             "src/Helpers/Helper.php"
