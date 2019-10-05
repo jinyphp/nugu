@@ -4,23 +4,41 @@ namespace Jiny\Nugu;
 
 class Proxy
 {
+    protected $Request, $Response;
+    private $bodyjson;
 
-    public function __construct()
+    public function __construct($req, $res)
     {
-        echo __CLASS__;
+        // echo __CLASS__;
+        $this->Request = $req;
+        $this->Response = $res;
+
+        $this->bodyjson = json_decode($this->Request->getBody());
+    }
+
+    public function setRequest($req)
+    {
+        $this->Request = $req;
+    }
+
+    public function setResponse($res)
+    {
+        $this->Response = $res;
     }
 
     const API_PATH = "\API\Nugu\\";
-    public function actionName($action)
+    private $controller;
+    public function endPoint($service=null)
     {
-        $action = str_replace("_", ".", $action);
+        $actionName = $this->bodyjson->action->actionName;
+        $action = str_replace("_", ".", $actionName);
         $names = explode(".",$action);
-        $controllerName = self::API_PATH;
-        foreach ($names as $name) {
-            $controllerName .= ucfirst($name);
-        }
         
-        return $controllerName;
+        $this->controller = self::API_PATH;
+        foreach ($names as $name) {
+            $this->controller .= ucfirst($name);
+        }
+        return $this->controller;
     }
 
     /**
