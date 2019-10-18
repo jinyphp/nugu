@@ -30,10 +30,10 @@ class Proxy
     private $controller;
     public function endPoint($service=null)
     {
-        $actionName = $this->bodyjson->action->actionName;
+        $actionName = $this->actionName();
         $action = str_replace("_", ".", $actionName);
         $names = explode(".",$action);
-        
+
         $this->controller = self::API_PATH;
         foreach ($names as $name) {
             $this->controller .= ucfirst($name);
@@ -41,8 +41,22 @@ class Proxy
         return $this->controller;
     }
 
+    public function actionName()
+    {
+        return $this->bodyjson->action->actionName;
+    }
+
+    public function params($key)
+    {
+        if($key) {
+            return $this->bodyjson->action->parameters->$key->value;
+        } 
+        return $this->bodyjson->action->parameters;
+    }
+
+
     /**
-     * 
+     *
      */
 
 }

@@ -8,7 +8,7 @@ class Controller
 
     public function __construct()
     {
-       
+
     }
 
     public function setRequest($req)
@@ -21,7 +21,13 @@ class Controller
         $this->Response = $res;
     }
 
+    protected $Proxy;
+    public function setProxy($proxy)
+    {
+        $this->Proxy = $proxy;
+    }
+
     /**
-     * 
+     *
      */
 }
