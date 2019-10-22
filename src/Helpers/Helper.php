@@ -10,4 +10,9 @@
 
 namespace Jiny\Nugu;
 
+function params($key)
+{
+    return \Jiny\Nugu\Proxy::instance()->params($key);
+}
+
 

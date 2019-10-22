@@ -7,6 +7,20 @@ class Proxy
     protected $Request, $Response;
     private $bodyjson;
 
+    /**
+     * 싱글턴
+     */
+    private static $Instance;
+    public static function instance()
+    {
+        if (!isset(self::$Instance)) {
+            self::$Instance = new self();
+        }
+
+        return self::$Instance;
+    }
+    
+
     public function __construct($req, $res)
     {
         // echo __CLASS__;
@@ -19,11 +33,13 @@ class Proxy
     public function setRequest($req)
     {
         $this->Request = $req;
+        return $this;
     }
 
     public function setResponse($res)
     {
         $this->Response = $res;
+        return $this;
     }
 
     const API_PATH = "\API\Nugu\\";
